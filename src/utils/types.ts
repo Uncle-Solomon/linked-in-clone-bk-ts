@@ -23,8 +23,8 @@ export interface ExperienceType {
 }
 
 export interface UserType {
-  lastname: string;
-  othernames: string;
+  lastName: string;
+  otherNames: string;
   gender: string;
   email: {
     validate: {

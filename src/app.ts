@@ -4,6 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 import { swaggerSpec } from "./docs";
+import { authRoute } from "./routes/auth";
 
 // Create express app instance
 const app = express();
@@ -18,6 +19,8 @@ app.use(
 );
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use("/api/v1", authRoute);
 
 //Server Landing Page
 app.get("/", (req: Request, res: Response) => {

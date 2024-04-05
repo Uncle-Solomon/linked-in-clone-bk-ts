@@ -4,11 +4,11 @@ import { UserType } from "../../utils/types";
 
 export const userSchema = new mongoose.Schema<UserType>(
   {
-    othernames: {
+    otherNames: {
       type: String,
       required: true,
     },
-    lastname: {
+    lastName: {
       type: String,
       required: true,
     },
@@ -23,7 +23,7 @@ export const userSchema = new mongoose.Schema<UserType>(
     },
     phoneNumber: {
       type: String,
-      required: true,
+      required: false,
       unique: true,
       validate: {
         validator: validator.isMobilePhone,
@@ -36,19 +36,22 @@ export const userSchema = new mongoose.Schema<UserType>(
     },
     gender: {
       type: String,
-      required: true,
+      required: false,
     },
     profileViews: {
       type: Number,
       required: false,
+      default: 0,
     },
     postImpressions: {
       type: Number,
       required: false,
+      default: 0,
     },
     searchAppearances: {
       type: Number,
       required: false,
+      default: 0,
     },
     headline: {
       type: String,
