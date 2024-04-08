@@ -13,6 +13,6 @@ const options: swaggerJSDoc.Options = {
     },
   },
 
-  apis: [path.resolve(__dirname, "./routes/*.ts")],
+  apis: [path.resolve(__dirname, "./routes/**/*.ts")],
 };
 export const swaggerSpec = swaggerJSDoc(options);

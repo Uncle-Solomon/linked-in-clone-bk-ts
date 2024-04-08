@@ -6,6 +6,7 @@ import cors from "cors";
 import { swaggerSpec } from "./docs";
 import { authRoute } from "./routes/auth";
 import { userRoute } from "./routes/user";
+import { postRoute } from "./routes/posts/post";
 
 // Create express app instance
 const app = express();
@@ -21,8 +22,9 @@ app.use(
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use("/api/v1", authRoute);
-app.use("/api/v1", userRoute);
+app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/user", userRoute);
+app.use("/api/v1/post", postRoute);
 
 //Server Landing Page
 app.get("/", (req: Request, res: Response) => {

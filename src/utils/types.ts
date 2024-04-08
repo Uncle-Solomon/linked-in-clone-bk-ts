@@ -50,6 +50,29 @@ export interface UserType {
   city: string;
 }
 
+export interface PostType {
+  user: Types.ObjectId;
+  textHead: string;
+  textBody: string;
+  imgUrl: string;
+  numberofLikes: number;
+}
+
+export interface CommentType {
+  user: Types.ObjectId;
+  post: Types.ObjectId;
+  textBody: string;
+  imgUrl: string;
+  numberofLikes: number;
+}
+
+export interface ReplyType {
+  user: Types.ObjectId;
+  comment: Types.ObjectId;
+  textBody: string;
+  numberofLikes: number;
+}
+
 export interface JWTPayload {
   user: {
     _id: Types.ObjectId;

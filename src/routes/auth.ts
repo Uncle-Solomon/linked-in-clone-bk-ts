@@ -62,6 +62,7 @@ export const authRoute = express.Router();
  * /api/v1/signup:
  *   post:
  *     summary: Register a new user
+ *     tags: [Auth]
  *     requestBody:
  *       required: true
  *       content:
@@ -85,6 +86,7 @@ authRoute.post("/signup", signup);
  * /api/v1/login:
  *   post:
  *     summary: Login user
+ *     tags: [Auth]
  *     requestBody:
  *       required: true
  *       content:
@@ -108,6 +110,7 @@ authRoute.post("/login", login);
  * /api/v1/forgot-password:
  *   post:
  *     summary: Change user's forgotten password
+ *     tags: [Auth]
  *     requestBody:
  *       required: true
  *       content:

@@ -41,6 +41,7 @@ export const userRoute = express.Router();
  *         required: false
  *         description: Refresh token required for authentication
  *     summary: Get all users
+ *     tags: [Users]
  *     security:
  *       - AccessToken: []
  *       - RefreshToken: []
@@ -71,6 +72,7 @@ userRoute.get("/get-all-users", validateUser, getAllUsers);
  * /api/v1/get-user/{id}:
  *   get:
  *     summary: Get user by ID
+ *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
@@ -118,6 +120,7 @@ userRoute.get("/get-user/:id", validateUser, getUserById);
  * /api/v1/edit-user/{id}:
  *   patch:
  *     summary: Update user by ID
+ *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
