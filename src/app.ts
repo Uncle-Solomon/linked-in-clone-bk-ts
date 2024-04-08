@@ -5,6 +5,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { swaggerSpec } from "./docs";
 import { authRoute } from "./routes/auth";
+import { userRoute } from "./routes/user";
 
 // Create express app instance
 const app = express();
@@ -21,6 +22,7 @@ app.use(
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/v1", authRoute);
+app.use("/api/v1", userRoute);
 
 //Server Landing Page
 app.get("/", (req: Request, res: Response) => {

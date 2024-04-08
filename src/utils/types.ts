@@ -48,8 +48,6 @@ export interface UserType {
   industry: string;
   country: string;
   city: string;
-  education: Array<EducationType>;
-  experience: Array<ExperienceType>;
 }
 
 export interface JWTPayload {

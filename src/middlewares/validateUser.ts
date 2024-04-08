@@ -5,7 +5,7 @@ import { JWTPayload } from "../utils/types";
 import { StatusCodes } from "http-status-codes";
 import { unAuthorizedError } from "../utils/error";
 
-export const validateAdmin = async (
+export const validateUser = async (
   req: Request,
   res: Response,
   next: NextFunction

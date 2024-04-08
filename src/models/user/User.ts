@@ -77,16 +77,6 @@ export const userSchema = new mongoose.Schema<UserType>(
       type: String,
       required: false,
     },
-    education: {
-      type: [Object],
-      required: false,
-      default: [],
-    },
-    experience: {
-      type: [Object],
-      required: false,
-      default: [],
-    },
   },
   {
     timestamps: true,
