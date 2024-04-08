@@ -11,7 +11,7 @@ export const userRoute = express.Router();
  * @swagger
  * components:
  *   schemas:
- *      UserUpdate:
+ *      user-update:
  *          type: object
  *          properties:
  *              otherNames:
@@ -130,7 +130,7 @@ userRoute.get("/get-user/:id", validateUser, getUserById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UserUpdate'
+ *             $ref: '#/components/schemas/user-update'
  *     security:
  *       - AccessToken: []
  *       - RefreshToken: []
