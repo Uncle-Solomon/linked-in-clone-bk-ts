@@ -27,7 +27,7 @@ export const userRoute = express.Router();
 
 /**
  * @swagger
- * /api/v1/get-all-users:
+ * /api/v1/user:
  *   get:
  *     parameters:
  *       - in: header
@@ -65,11 +65,11 @@ export const userRoute = express.Router();
  *     description: Refresh token required for authentication
 
  */
-userRoute.get("/get-all-users", validateUser, getAllUsers);
+userRoute.get("/", validateUser, getAllUsers);
 
 /**
  * @swagger
- * /api/v1/get-user/{id}:
+ * /api/v1/{id}:
  *   get:
  *     summary: Get user by ID
  *     tags: [Users]
@@ -92,7 +92,7 @@ userRoute.get("/get-all-users", validateUser, getAllUsers);
  *         description: Refresh token required for authentication
  *     security:
  *       - AccessToken: []
- *       - RefreshToken: [] 
+ *       - RefreshToken: []
  *     responses:
  *       '200':
  *         description: User found successfully
@@ -100,24 +100,7 @@ userRoute.get("/get-all-users", validateUser, getAllUsers);
  *         description: User does not exist
  *       '500':
  *         description: Internal server error
- * securityDefinitions:
- *   AccessToken:
- *     type: apiKey
- *     name: AccessToken
- *     in: header
- *     description: Access token required for authentication
- *   RefreshToken:
- *     type: apiKey
- *     name: RefreshToken
- *     in: header
- *     description: Refresh token required for authentication
-
- */
-userRoute.get("/get-user/:id", validateUser, getUserById);
-
-/**
- * @swagger
- * /api/v1/edit-user/{id}:
+ *
  *   patch:
  *     summary: Update user by ID
  *     tags: [Users]
@@ -146,6 +129,7 @@ userRoute.get("/get-user/:id", validateUser, getUserById);
  *         description: Bad request
  *       '500':
  *         description: Internal server error
+ *
  * securityDefinitions:
  *   AccessToken:
  *     type: apiKey
@@ -159,4 +143,7 @@ userRoute.get("/get-user/:id", validateUser, getUserById);
  *     description: Refresh token required for authentication
  */
 
-userRoute.patch("/edit-user/:id", validateUser, updateUser);
+userRoute
+  .route("/:id")
+  .get(validateUser, getUserById)
+  .patch(validateUser, updateUser);

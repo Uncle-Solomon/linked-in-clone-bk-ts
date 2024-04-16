@@ -10,7 +10,7 @@ export const postRoute = express.Router();
 
 /**
  * @swagger
- * /api/v1/get-all-posts:
+ * /api/v1/post/:
  *   get:
  *     summary: Get all posts
  *     tags: [Posts]
@@ -35,84 +35,6 @@ export const postRoute = express.Router();
  *         description: Bad request
  *       '500':
  *         description: Internal server error
- */
-postRoute.get("/get-all-posts", validateUser, getAllPosts);
-
-/**
- * @swagger
- * /api/v1/get-post/{id}:
- *   get:
- *     summary: Get post by ID
- *     tags: [Posts]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the post to retrieve
- *         schema:
- *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
- *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
- *     responses:
- *       '200':
- *         description: Post found successfully
- *       '404':
- *         description: Post does not exist
- *       '500':
- *         description: Internal server error
- */
-postRoute.get("/get-post/:id", validateUser, getPostById);
-
-/**
- * @swagger
- * /api/v1/get-post-by-user/{user_id}:
- *   get:
- *     summary: Get post by user ID
- *     tags: [Posts]
- *     parameters:
- *       - in: path
- *         name: user_id
- *         required: true
- *         description: ID of the user whose posts to retrieve
- *         schema:
- *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
- *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
- *     responses:
- *       '200':
- *         description: Posts found successfully
- *       '404':
- *         description: Posts for the user not found
- *       '500':
- *         description: Internal server error
- */
-postRoute.get("/get-post-by-user/:user_id", validateUser, getPostByUserId);
-
-/**
- * @swagger
- * /api/v1/create-post:
  *   post:
  *     summary: Create a new post
  *     tags: [Posts]
@@ -155,4 +77,79 @@ postRoute.get("/get-post-by-user/:user_id", validateUser, getPostByUserId);
  *       '500':
  *         description: Internal server error
  */
-postRoute.post("/create-post", validateUser, createPost);
+postRoute
+  .route("/")
+  .get(validateUser, getAllPosts)
+  .post(validateUser, createPost);
+
+/**
+ * @swagger
+ * /api/v1/{id}:
+ *   get:
+ *     summary: Get post by ID
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the post to retrieve
+ *         schema:
+ *           type: string
+ *       - in: header
+ *         name: AccessToken
+ *         type: string
+ *         required: false
+ *         description: Access token required for authentication
+ *       - in: header
+ *         name: RefreshToken
+ *         type: string
+ *         required: false
+ *         description: Refresh token required for authentication
+ *     security:
+ *       - AccessToken: []
+ *       - RefreshToken: []
+ *     responses:
+ *       '200':
+ *         description: Post found successfully
+ *       '404':
+ *         description: Post does not exist
+ *       '500':
+ *         description: Internal server error
+ */
+postRoute.get("/:id", validateUser, getPostById);
+
+/**
+ * @swagger
+ * /api/v1/user/{user_id}:
+ *   get:
+ *     summary: Get post by user ID
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         description: ID of the user whose posts to retrieve
+ *         schema:
+ *           type: string
+ *       - in: header
+ *         name: AccessToken
+ *         type: string
+ *         required: false
+ *         description: Access token required for authentication
+ *       - in: header
+ *         name: RefreshToken
+ *         type: string
+ *         required: false
+ *         description: Refresh token required for authentication
+ *     security:
+ *       - AccessToken: []
+ *       - RefreshToken: []
+ *     responses:
+ *       '200':
+ *         description: Posts found successfully
+ *       '404':
+ *         description: Posts for the user not found
+ *       '500':
+ *         description: Internal server error
+ */
+postRoute.get("/user/:user_id", validateUser, getPostByUserId);

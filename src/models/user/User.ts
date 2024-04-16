@@ -24,7 +24,6 @@ export const userSchema = new mongoose.Schema<UserType>(
     phoneNumber: {
       type: String,
       required: false,
-      unique: true,
       validate: {
         validator: validator.isMobilePhone,
         message: "Please provide a valid phone number",

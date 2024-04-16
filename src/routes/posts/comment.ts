@@ -9,7 +9,7 @@ export const commentRoute = express.Router();
 
 /**
  * @swagger
- * /api/v1/comment/get-all-comments:
+ * /api/v1/comment:
  *   get:
  *     summary: Get all comments
  *     tags: [Comments]
@@ -34,88 +34,6 @@ export const commentRoute = express.Router();
  *         description: Bad request
  *       '500':
  *         description: Internal server error
- */
-commentRoute.get("/get-all-comments", validateUser, getAllComments);
-
-/**
- * @swagger
- * /api/v1/comment/get-comment/{id}:
- *   get:
- *     summary: Get comment by ID
- *     tags: [Comments]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the comment to retrieve
- *         schema:
- *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
- *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
- *     responses:
- *       '200':
- *         description: Comment found successfully
- *       '404':
- *         description: Comment does not exist
- *       '500':
- *         description: Internal server error
- */
-commentRoute.get("/get-comment/:id", validateUser, getCommentById);
-
-/**
- * @swagger
- * /api/v1/comment/get-comment-by-post/{post_id}:
- *   get:
- *     summary: Get comments by post ID
- *     tags: [Comments]
- *     parameters:
- *       - in: path
- *         name: post_id
- *         required: true
- *         description: ID of the post whose comments to retrieve
- *         schema:
- *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
- *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
- *     responses:
- *       '200':
- *         description: Comments found successfully
- *       '404':
- *         description: Comments for the post not found
- *       '500':
- *         description: Internal server error
- */
-commentRoute.get(
-  "/get-comment-by-post/:post_id",
-  validateUser,
-  getCommentByPostId
-);
-
-/**
- * @swagger
- * /api/v1/comment/create-comment:
  *   post:
  *     summary: Create a new comment
  *     tags: [Comments]
@@ -157,5 +75,81 @@ commentRoute.get(
  *         description: Comment created successfully
  *       '500':
  *         description: Internal server error
+
  */
-commentRoute.post("/create-comment", validateUser, createComment);
+commentRoute
+  .route("/")
+  .get(validateUser, getAllComments)
+  .post(validateUser, createComment);
+
+/**
+ * @swagger
+ * /api/v1/comment/{id}:
+ *   get:
+ *     summary: Get comment by ID
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the comment to retrieve
+ *         schema:
+ *           type: string
+ *       - in: header
+ *         name: AccessToken
+ *         type: string
+ *         required: false
+ *         description: Access token required for authentication
+ *       - in: header
+ *         name: RefreshToken
+ *         type: string
+ *         required: false
+ *         description: Refresh token required for authentication
+ *     security:
+ *       - AccessToken: []
+ *       - RefreshToken: []
+ *     responses:
+ *       '200':
+ *         description: Comment found successfully
+ *       '404':
+ *         description: Comment does not exist
+ *       '500':
+ *         description: Internal server error
+ */
+commentRoute.get("/:id", validateUser, getCommentById);
+
+/**
+ * @swagger
+ * /api/v1/comment/post/{post_id}:
+ *   get:
+ *     summary: Get comments by post ID
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: post_id
+ *         required: true
+ *         description: ID of the post whose comments to retrieve
+ *         schema:
+ *           type: string
+ *       - in: header
+ *         name: AccessToken
+ *         type: string
+ *         required: false
+ *         description: Access token required for authentication
+ *       - in: header
+ *         name: RefreshToken
+ *         type: string
+ *         required: false
+ *         description: Refresh token required for authentication
+ *     security:
+ *       - AccessToken: []
+ *       - RefreshToken: []
+ *     responses:
+ *       '200':
+ *         description: Comments found successfully
+ *       '404':
+ *         description: Comments for the post not found
+ *       '500':
+ *         description: Internal server error
+ */
+commentRoute.get("/post/:post_id", validateUser, getCommentByPostId);

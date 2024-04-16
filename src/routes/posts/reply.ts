@@ -9,7 +9,7 @@ export const replyRoute = express.Router();
 
 /**
  * @swagger
- * /api/v1/reply/get-all-replies:
+ * /api/v1/reply:
  *   get:
  *     summary: Get all replies
  *     tags: [Replies]
@@ -34,88 +34,6 @@ export const replyRoute = express.Router();
  *         description: Bad request
  *       '500':
  *         description: Internal server error
- */
-replyRoute.get("/get-all-replies", validateUser, getAllReplies);
-
-/**
- * @swagger
- * /api/v1/reply/get-reply/{id}:
- *   get:
- *     summary: Get reply by ID
- *     tags: [Replies]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the reply to retrieve
- *         schema:
- *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
- *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
- *     responses:
- *       '200':
- *         description: Reply found successfully
- *       '404':
- *         description: Reply does not exist
- *       '500':
- *         description: Internal server error
- */
-replyRoute.get("/get-reply/:id", validateUser, getReplyById);
-
-/**
- * @swagger
- * /api/v1/reply/get-reply-by-comment/{comment_id}:
- *   get:
- *     summary: Get replies by comment ID
- *     tags: [Replies]
- *     parameters:
- *       - in: path
- *         name: comment_id
- *         required: true
- *         description: ID of the comment whose replies to retrieve
- *         schema:
- *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
- *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
- *     responses:
- *       '200':
- *         description: Replies found successfully
- *       '404':
- *         description: Replies for the comment not found
- *       '500':
- *         description: Internal server error
- */
-replyRoute.get(
-  "/get-reply-by-comment/:comment_id",
-  validateUser,
-  getReplyByCommentId
-);
-
-/**
- * @swagger
- * /api/v1/reply/create-reply:
  *   post:
  *     summary: Create a new reply
  *     tags: [Replies]
@@ -158,4 +76,79 @@ replyRoute.get(
  *       '500':
  *         description: Internal server error
  */
-replyRoute.post("/create-reply", validateUser, createReply);
+replyRoute
+  .route("/")
+  .get(validateUser, getAllReplies)
+  .post(validateUser, createReply);
+
+/**
+ * @swagger
+ * /api/v1/{id}:
+ *   get:
+ *     summary: Get reply by ID
+ *     tags: [Replies]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the reply to retrieve
+ *         schema:
+ *           type: string
+ *       - in: header
+ *         name: AccessToken
+ *         type: string
+ *         required: false
+ *         description: Access token required for authentication
+ *       - in: header
+ *         name: RefreshToken
+ *         type: string
+ *         required: false
+ *         description: Refresh token required for authentication
+ *     security:
+ *       - AccessToken: []
+ *       - RefreshToken: []
+ *     responses:
+ *       '200':
+ *         description: Reply found successfully
+ *       '404':
+ *         description: Reply does not exist
+ *       '500':
+ *         description: Internal server error
+ */
+replyRoute.get("/:id", validateUser, getReplyById);
+
+/**
+ * @swagger
+ * /api/v1/reply/comment/{comment_id}:
+ *   get:
+ *     summary: Get replies by comment ID
+ *     tags: [Replies]
+ *     parameters:
+ *       - in: path
+ *         name: comment_id
+ *         required: true
+ *         description: ID of the comment whose replies to retrieve
+ *         schema:
+ *           type: string
+ *       - in: header
+ *         name: AccessToken
+ *         type: string
+ *         required: false
+ *         description: Access token required for authentication
+ *       - in: header
+ *         name: RefreshToken
+ *         type: string
+ *         required: false
+ *         description: Refresh token required for authentication
+ *     security:
+ *       - AccessToken: []
+ *       - RefreshToken: []
+ *     responses:
+ *       '200':
+ *         description: Replies found successfully
+ *       '404':
+ *         description: Replies for the comment not found
+ *       '500':
+ *         description: Internal server error
+ */
+replyRoute.get("/comment/:comment_id", validateUser, getReplyByCommentId);

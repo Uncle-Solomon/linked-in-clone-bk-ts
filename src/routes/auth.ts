@@ -59,7 +59,7 @@ export const authRoute = express.Router();
 
 /**
  * @swagger
- * /api/v1/signup:
+ * /api/v1/auth/signup:
  *   post:
  *     summary: Register a new user
  *     tags: [Auth]
@@ -83,7 +83,7 @@ authRoute.post("/signup", signup);
 
 /**
  * @swagger
- * /api/v1/login:
+ * /api/v1/auth/login:
  *   post:
  *     summary: Login user
  *     tags: [Auth]
@@ -107,7 +107,7 @@ authRoute.post("/login", login);
 
 /**
  * @swagger
- * /api/v1/forgot-password:
+ * /api/v1/auth/forgot-password:
  *   post:
  *     summary: Change user's forgotten password
  *     tags: [Auth]
