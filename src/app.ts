@@ -4,6 +4,11 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 import { swaggerSpec } from "./docs";
+import { authRoute } from "./routes/auth";
+import { userRoute } from "./routes/user";
+import { postRoute } from "./routes/posts/post";
+import { commentRoute } from "./routes/posts/comment";
+import { replyRoute } from "./routes/posts/reply";
 
 // Create express app instance
 const app = express();
@@ -18,6 +23,12 @@ app.use(
 );
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/user", userRoute);
+app.use("/api/v1/post", postRoute);
+app.use("/api/v1/comment", commentRoute);
+app.use("/api/v1/reply", replyRoute);
 
 //Server Landing Page
 app.get("/", (req: Request, res: Response) => {
