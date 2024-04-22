@@ -4,9 +4,11 @@ import { errorResponse, successResponse } from "../../utils/customResponse";
 import { StatusCodes } from "http-status-codes";
 import { badRequestError, notFoundError } from "../../utils/error";
 import { User } from "../../models/user/User";
-import { REFRESH_KEY, SECRET_KEY } from "../../utils/config";
+// import { REFRESH_KEY, SECRET_KEY } from "../../utils/config";
+
 import { createJwt } from "../../utils/jwt";
 import { JWTPayload } from "../../utils/types";
+import { SECRET_KEY } from "../../utils/config";
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -31,14 +33,12 @@ export const login = async (req: Request, res: Response) => {
     let country = user.country;
 
     let payload: JWTPayload = { user: { _id, email, country } };
-    let accessToken: string = createJwt(payload, SECRET_KEY, 3600);
-    let refreshToken: string = createJwt(payload, REFRESH_KEY, 86400);
+    let token: string = createJwt(payload, SECRET_KEY, 3600);
+    // let refreshToken: string = createJwt(payload, REFRESH_KEY, 86400);
 
     res
       .status(StatusCodes.OK)
-      .json(
-        successResponse("User login successful", { accessToken, refreshToken })
-      );
+      .json(successResponse("User login successful", { token }));
   } catch (error: any) {
     res
       .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)

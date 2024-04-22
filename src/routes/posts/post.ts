@@ -10,24 +10,22 @@ export const postRoute = express.Router();
 
 /**
  * @swagger
- * /api/v1/post/:
+ * components:
+ *   securitySchemes:
+ *      bearerAuth:            # arbitrary name for the security scheme
+ *        type: http
+ *        scheme: bearer
+ *        bearerFormat: JWT    # optional, arbitrary value for documentation purpose
+ */
+
+/**
+ * @swagger
+ * /api/v1/post:
  *   get:
  *     summary: Get all posts
  *     tags: [Posts]
- *     parameters:
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Posts found successfully
@@ -38,17 +36,6 @@ export const postRoute = express.Router();
  *   post:
  *     summary: Create a new post
  *     tags: [Posts]
- *     parameters:
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
  *     requestBody:
  *       required: true
  *       content:
@@ -69,8 +56,7 @@ export const postRoute = express.Router();
  *                 type: string
  *                 description: URL of the image attached to the post
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '201':
  *         description: Post created successfully
@@ -84,7 +70,7 @@ postRoute
 
 /**
  * @swagger
- * /api/v1/{id}:
+ * /api/v1/post/{id}:
  *   get:
  *     summary: Get post by ID
  *     tags: [Posts]
@@ -95,19 +81,8 @@ postRoute
  *         description: ID of the post to retrieve
  *         schema:
  *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Post found successfully
@@ -120,7 +95,7 @@ postRoute.get("/:id", validateUser, getPostById);
 
 /**
  * @swagger
- * /api/v1/user/{user_id}:
+ * /api/v1/post/user/{user_id}:
  *   get:
  *     summary: Get post by user ID
  *     tags: [Posts]
@@ -131,19 +106,8 @@ postRoute.get("/:id", validateUser, getPostById);
  *         description: ID of the user whose posts to retrieve
  *         schema:
  *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Posts found successfully

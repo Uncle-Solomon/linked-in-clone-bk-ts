@@ -9,24 +9,22 @@ export const commentRoute = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   securitySchemes:
+ *      bearerAuth:            # arbitrary name for the security scheme
+ *        type: http
+ *        scheme: bearer
+ *        bearerFormat: JWT    # optional, arbitrary value for documentation purpose
+ */
+
+/**
+ * @swagger
  * /api/v1/comment:
  *   get:
  *     summary: Get all comments
- *     tags: [Comments]
- *     parameters:
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
+ *     tags: [Posts]
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Comments found successfully
@@ -36,18 +34,7 @@ export const commentRoute = express.Router();
  *         description: Internal server error
  *   post:
  *     summary: Create a new comment
- *     tags: [Comments]
- *     parameters:
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
+ *     tags: [Posts]
  *     requestBody:
  *       required: true
  *       content:
@@ -68,8 +55,7 @@ export const commentRoute = express.Router();
  *                 type: string
  *                 description: URL of the image attached to the comment
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '201':
  *         description: Comment created successfully
@@ -87,7 +73,7 @@ commentRoute
  * /api/v1/comment/{id}:
  *   get:
  *     summary: Get comment by ID
- *     tags: [Comments]
+ *     tags: [Posts]
  *     parameters:
  *       - in: path
  *         name: id
@@ -95,19 +81,8 @@ commentRoute
  *         description: ID of the comment to retrieve
  *         schema:
  *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Comment found successfully
@@ -123,7 +98,7 @@ commentRoute.get("/:id", validateUser, getCommentById);
  * /api/v1/comment/post/{post_id}:
  *   get:
  *     summary: Get comments by post ID
- *     tags: [Comments]
+ *     tags: [Posts]
  *     parameters:
  *       - in: path
  *         name: post_id
@@ -131,19 +106,8 @@ commentRoute.get("/:id", validateUser, getCommentById);
  *         description: ID of the post whose comments to retrieve
  *         schema:
  *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Comments found successfully

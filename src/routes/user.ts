@@ -23,28 +23,21 @@ export const userRoute = express.Router();
  *          example:
  *              otherNames: John
  *              lastName: Doe
+ *   securitySchemes:
+ *      bearerAuth:            # arbitrary name for the security scheme
+ *        type: http
+ *        scheme: bearer
+ *        bearerFormat: JWT    # optional, arbitrary value for documentation purpose
  */
 
 /**
  * @swagger
  * /api/v1/user:
  *   get:
- *     parameters:
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
  *     summary: Get all users
  *     tags: [Users]
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Users found successfully
@@ -53,46 +46,22 @@ export const userRoute = express.Router();
  *       '500':
  *         description: Internal server error
  * securityDefinitions:
- *   AccessToken:
+ *   Authorization:
  *     type: apiKey
- *     name: AccessToken
+ *     name: Authorization
  *     in: header
- *     description: Access token required for authentication
- *   RefreshToken:
- *     type: apiKey
- *     name: RefreshToken
- *     in: header
- *     description: Refresh token required for authentication
-
+ *     description: Bearer token required for authentication
  */
 userRoute.get("/", validateUser, getAllUsers);
 
 /**
  * @swagger
- * /api/v1/{id}:
+ * /api/v1/user/{id}:
  *   get:
  *     summary: Get user by ID
  *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the user to retrieve
- *         schema:
- *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: User found successfully
@@ -118,8 +87,7 @@ userRoute.get("/", validateUser, getAllUsers);
  *           schema:
  *             $ref: '#/components/schemas/user-update'
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: User updated successfully
@@ -130,17 +98,6 @@ userRoute.get("/", validateUser, getAllUsers);
  *       '500':
  *         description: Internal server error
  *
- * securityDefinitions:
- *   AccessToken:
- *     type: apiKey
- *     name: AccessToken
- *     in: header
- *     description: Access token required for authentication
- *   RefreshToken:
- *     type: apiKey
- *     name: RefreshToken
- *     in: header
- *     description: Refresh token required for authentication
  */
 
 userRoute

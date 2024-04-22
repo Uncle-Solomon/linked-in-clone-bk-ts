@@ -9,24 +9,22 @@ export const replyRoute = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   securitySchemes:
+ *      bearerAuth:            # arbitrary name for the security scheme
+ *        type: http
+ *        scheme: bearer
+ *        bearerFormat: JWT    # optional, arbitrary value for documentation purpose
+ */
+
+/**
+ * @swagger
  * /api/v1/reply:
  *   get:
  *     summary: Get all replies
- *     tags: [Replies]
- *     parameters:
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
+ *     tags: [Posts]
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Replies found successfully
@@ -36,18 +34,7 @@ export const replyRoute = express.Router();
  *         description: Internal server error
  *   post:
  *     summary: Create a new reply
- *     tags: [Replies]
- *     parameters:
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
+ *     tags: [Posts]
  *     requestBody:
  *       required: true
  *       content:
@@ -68,8 +55,7 @@ export const replyRoute = express.Router();
  *                 type: string
  *                 description: URL of the image attached to the reply
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '201':
  *         description: Reply created successfully
@@ -86,7 +72,7 @@ replyRoute
  * /api/v1/{id}:
  *   get:
  *     summary: Get reply by ID
- *     tags: [Replies]
+ *     tags: [Posts]
  *     parameters:
  *       - in: path
  *         name: id
@@ -94,19 +80,8 @@ replyRoute
  *         description: ID of the reply to retrieve
  *         schema:
  *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Reply found successfully
@@ -122,7 +97,7 @@ replyRoute.get("/:id", validateUser, getReplyById);
  * /api/v1/reply/comment/{comment_id}:
  *   get:
  *     summary: Get replies by comment ID
- *     tags: [Replies]
+ *     tags: [Posts]
  *     parameters:
  *       - in: path
  *         name: comment_id
@@ -130,19 +105,8 @@ replyRoute.get("/:id", validateUser, getReplyById);
  *         description: ID of the comment whose replies to retrieve
  *         schema:
  *           type: string
- *       - in: header
- *         name: AccessToken
- *         type: string
- *         required: false
- *         description: Access token required for authentication
- *       - in: header
- *         name: RefreshToken
- *         type: string
- *         required: false
- *         description: Refresh token required for authentication
  *     security:
- *       - AccessToken: []
- *       - RefreshToken: []
+ *       - bearerAuth: []
  *     responses:
  *       '200':
  *         description: Replies found successfully
