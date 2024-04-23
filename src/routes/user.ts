@@ -4,6 +4,8 @@ import { getAllUsers } from "../controllers/user/getAllUsers";
 import { getUserById } from "../controllers/user/getUserById";
 import { updateUser } from "../controllers/user/updateUser";
 import { validateUser } from "../middlewares/validateUser";
+import { followUser } from "../controllers/user/followUser";
+import { unfollowUser } from "../controllers/user/unfollowUser";
 
 export const userRoute = express.Router();
 
@@ -60,6 +62,13 @@ userRoute.get("/", validateUser, getAllUsers);
  *   get:
  *     summary: Get user by ID
  *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the user to update
+ *         schema:
+ *           type: string
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -104,3 +113,72 @@ userRoute
   .route("/:id")
   .get(validateUser, getUserById)
   .patch(validateUser, updateUser);
+
+/**
+ * @swagger
+ * /api/v1/user/follow/{id}:
+ *   patch:
+ *     summary: Follow a User
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the user to follow
+ *         schema:
+ *           type: string
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       '200':
+ *         description: User followed successfully
+ *       '400':
+ *         description: Bad request
+ *       '401':
+ *         description: Unauthorized
+ *       '404':
+ *         description: User does not exist
+ *       '500':
+ *         description: Internal server error
+ * securityDefinitions:
+ *   Authorization:
+ *     type: apiKey
+ *     name: Authorization
+ *     in: header
+ *     description: Bearer token required for authentication
+ */
+userRoute.route("/follow/:id").patch(validateUser, followUser);
+/**
+ * @swagger
+ * /api/v1/user/unfollow/{id}:
+ *   patch:
+ *     summary: Unfollow a User
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the user to unfollow
+ *         schema:
+ *           type: string
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       '200':
+ *         description: User unfollowed successfully
+ *       '400':
+ *         description: Bad request
+ *       '401':
+ *         description: Unauthorized
+ *       '404':
+ *         description: User does not exist
+ *       '500':
+ *         description: Internal server error
+ * securityDefinitions:
+ *   Authorization:
+ *     type: apiKey
+ *     name: Authorization
+ *     in: header
+ *     description: Bearer token required for authentication
+ */
+userRoute.route("/unfollow/:id").patch(validateUser, unfollowUser);

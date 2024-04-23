@@ -1,12 +1,14 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { errorResponse, successResponse } from "../../../utils/customResponse";
 import { Post } from "../../../models/post/Post";
 import { internalServerError } from "../../../utils/error";
+import { CustomRequest } from "../../../utils/types";
 
-export const createPost = async (req: Request, res: Response) => {
+export const createPost = async (req: CustomRequest, res: Response) => {
   try {
-    let { user, textHead, textBody, imgUrl } = req.body;
+    let user = req.user._id;
+    let { textHead, textBody, imgUrl } = req.body;
     const post = new Post({ user, textHead, textBody, imgUrl });
     const response = await post.save();
     if (!response) {

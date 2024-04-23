@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import validator from "validator";
 import { UserType } from "../../utils/types";
 
@@ -76,6 +76,18 @@ export const userSchema = new mongoose.Schema<UserType>(
       type: String,
       required: false,
     },
+    followers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
+    following: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
   },
   {
     timestamps: true,

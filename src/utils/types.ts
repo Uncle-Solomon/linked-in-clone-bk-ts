@@ -1,4 +1,9 @@
+import { Request } from "express";
 import { Types } from "mongoose";
+
+export interface CustomRequest extends Request {
+  user?: any;
+}
 
 export interface EducationType {
   user: Types.ObjectId;
@@ -48,6 +53,8 @@ export interface UserType {
   industry: string;
   country: string;
   city: string;
+  followers: Types.ObjectId[];
+  following: Types.ObjectId[];
 }
 
 export interface PostType {

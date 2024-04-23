@@ -42,9 +42,6 @@ export const commentRoute = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               user:
- *                 type: string
- *                 description: ID of the user who created the comment
  *               post:
  *                 type: string
  *                 description: ID of the post to which the comment belongs

@@ -7,7 +7,7 @@ import { Reply } from "../../../models/post/Reply";
 export const getReplyByCommentId = async (req: Request, res: Response) => {
   try {
     const { comment_id } = req.params;
-    const reply = await Reply.findOne({ comment: comment_id });
+    const reply = await Reply.find({ comment: comment_id });
     if (!reply) throw notFoundError("Reply does not exist");
     res
       .status(StatusCodes.OK)

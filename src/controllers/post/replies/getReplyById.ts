@@ -7,7 +7,7 @@ import { Reply } from "../../../models/post/Reply";
 export const getReplyById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const reply = await Reply.findOne({ _id: id });
+    const reply = await Reply.find({ _id: id });
     if (!reply) throw notFoundError("Reply does not exist");
     res
       .status(StatusCodes.OK)

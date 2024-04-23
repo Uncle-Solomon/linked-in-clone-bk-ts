@@ -1,12 +1,14 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { errorResponse, successResponse } from "../../../utils/customResponse";
 import { internalServerError } from "../../../utils/error";
 import { Reply } from "../../../models/post/Reply";
+import { CustomRequest } from "../../../utils/types";
 
-export const createReply = async (req: Request, res: Response) => {
+export const createReply = async (req: CustomRequest, res: Response) => {
   try {
-    let { user, comment, textBody, imgUrl } = req.body;
+    let user = req.user._id;
+    let { comment, textBody, imgUrl } = req.body;
     const reply = new Reply({ user, comment, textBody, imgUrl });
     const response = await reply.save();
     if (!response) {

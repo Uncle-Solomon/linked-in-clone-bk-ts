@@ -42,9 +42,6 @@ export const replyRoute = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               user:
- *                 type: string
- *                 description: ID of the user who created the reply
  *               comment:
  *                 type: string
  *                 description: ID of the comment to which the reply belongs

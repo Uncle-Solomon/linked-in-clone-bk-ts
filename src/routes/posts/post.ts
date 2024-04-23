@@ -43,9 +43,6 @@ export const postRoute = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               user:
- *                 type: string
- *                 description: ID of the user who created the post
  *               textHead:
  *                 type: string
  *                 description: The heading text of the post
@@ -95,17 +92,17 @@ postRoute.get("/:id", validateUser, getPostById);
 
 /**
  * @swagger
- * /api/v1/post/user/{user_id}:
+ * /api/v1/post/user/{id}:
  *   get:
- *     summary: Get post by user ID
- *     tags: [Posts]
+ *     summary: Get all posts by user ID
  *     parameters:
  *       - in: path
- *         name: user_id
+ *         name: id
  *         required: true
- *         description: ID of the user whose posts to retrieve
+ *         description: ID of the user's post to retrieve
  *         schema:
  *           type: string
+ *     tags: [Posts]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -116,4 +113,4 @@ postRoute.get("/:id", validateUser, getPostById);
  *       '500':
  *         description: Internal server error
  */
-postRoute.get("/user/:user_id", validateUser, getPostByUserId);
+postRoute.get("/user/:id", validateUser, getPostByUserId);

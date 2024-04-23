@@ -11,17 +11,21 @@ export const updateUser = async (req: Request, res: Response) => {
     if (
       req.body.password ||
       req.body.email ||
-      req.body.phoneNumber ||
+      // req.body.phoneNumber ||
       req.body.profileViews ||
       req.body.postImpressions ||
-      req.body.searchAppearances
+      req.body.searchAppearances ||
+      req.body.followers ||
+      req.body.following
     ) {
       delete req.body.password,
         req.body.email,
-        req.body.phoneNumber,
+        // req.body.phoneNumber,
         req.body.profileViews,
         req.body.postImpressions,
-        req.body.searchAppearances;
+        req.body.searchAppearances,
+        req.body.followers,
+        req.body.following;
       throw badRequestError("These fields cannot be edited.");
     }
     const user = await User.findByIdAndUpdate({ _id: id }, req.body, {
